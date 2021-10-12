@@ -1,9 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
-
-
 Notepad::Notepad(QWidget *parent):
 // Call the QMainWindow constructor
 QMainWindow(parent),
@@ -18,19 +15,20 @@ ui->setupUi(this);
 this->setCentralWidget(ui->textEdit);
 }
 
+// deconstructor
 Notepad::~Notepad()
 {
     delete ui;
 }
 
-
+// clear textEdit widget buffer
 void Notepad::on_actionNew_triggered()
 {
     currentFile.clear();
     ui->textEdit->setText(QString());
 }
 
-
+// Opens system dialog that allows you to selectt a file
 void Notepad::on_actionOpen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file");
@@ -40,6 +38,7 @@ void Notepad::on_actionOpen_triggered()
         QMessageBox::warning(this, "Warning", "Cannot Open File: " + file.errorString());
         return;
     }
+
     setWindowTitle(fileName);
     QTextStream in(&file);
     QString text = in.readAll();
@@ -47,7 +46,7 @@ void Notepad::on_actionOpen_triggered()
     file.close();
 }
 
-
+// opens system dialog for saving a file
 void Notepad::on_actionSave_As_triggered()
 {
     QString fileName = QFileDialog::getSaveFileName(this, "Save As");
@@ -57,6 +56,7 @@ void Notepad::on_actionSave_As_triggered()
         QMessageBox::warning(this, "Warning", "Cannot Save File: " + file.errorString());
         return;
     }
+
     currentFile = fileName;
     setWindowTitle(fileName);
     QTextStream out(&file);
@@ -66,7 +66,7 @@ void Notepad::on_actionSave_As_triggered()
 
 }
 
-
+// printer function
 void Notepad::on_actionPrint_triggered()
 {
     QPrinter printer;
@@ -80,8 +80,6 @@ void Notepad::on_actionPrint_triggered()
 
 }
 
-
-
 void Notepad::on_actionExit_triggered()
 {
     QApplication::quit();
@@ -92,7 +90,6 @@ void Notepad::on_actionCopy_triggered()
 {
     ui->textEdit->copy();
 }
-
 
 void Notepad::on_actionPaste_triggered()
 {
@@ -105,17 +102,12 @@ void Notepad::on_actionCut_triggered()
     ui->textEdit->cut();
 }
 
-
-
-
 void Notepad::on_actionUndo_triggered()
 {
     ui->textEdit->undo();
 }
 
-
 void Notepad::on_actionRedo_triggered()
 {
     ui->textEdit->redo();
 }
-

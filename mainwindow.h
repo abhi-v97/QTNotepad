@@ -10,7 +10,7 @@
 #include <QPrinter>
 #include <QPrintDialog>
 
-
+// standard UI namespace for UI file
 QT_BEGIN_NAMESPACE
 namespace Ui { class Notepad; }
 QT_END_NAMESPACE
@@ -20,7 +20,10 @@ class Notepad : public QMainWindow
     Q_OBJECT
 
 public:
+// passing zero declares this widget to have no parent
     explicit Notepad(QWidget *parent = 0);
+
+    // deconstructor declared which will free up resources
     ~Notepad();
 
 private slots:
